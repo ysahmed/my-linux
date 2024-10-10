@@ -17,7 +17,7 @@ function gcop(){
 		--header "enter: view, C-c: copy hash" \
 		--bind "enter:execute:
             echo {} | grep -o '[a-f0-9]\{7\}' | head -1 |
-            xargs -I % sh -c 'git show --color=always %' | less -R"  \
+            xargs -I % sh -c 'git show --color=always % | diff-so-fancy' | less -R"  \
 		--bind "ctrl-c:execute(echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xclip -selection clipboard)"
 }
 

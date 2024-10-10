@@ -2,8 +2,8 @@
 source /usr/share/doc/find-the-command/ftc.bash
 
 # others
-source sources/git
-source sources/pacman
+source ~/sources/git.bash
+source ~/sources/pacman.bash
 
 if [ -x $HOME/.dev/flutter/bin/flutter ]; then
 	export PATH="$HOME/.dev/flutter/bin:$PATH"
@@ -102,5 +102,9 @@ if [ -x .dev/flutter/bin/flutter ]; then
 export PATH="$HOME/.dev/flutter/bin:$PATH"
 fi
 
-
-
+function main(){
+  source sources/git
+  cmd="$(grep '^function' "$0"|grep -v "function main"|awk '{print $2}'|cut -d\( -f1|fzf --prompt "Please Make a Selection")"
+  $cmd
+  exit 0
+}

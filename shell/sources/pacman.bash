@@ -1,5 +1,5 @@
 function fpac() {
-    package=$(pacman -Sl | fzf -m) || return
+    package=$(pacman -Sl | fzf -m --reverse) || return
     [[ -n $package ]] && echo "$package" | cut -d' ' -f2 | xargs -r sudo pacman -Sy --noconfirm
 }
 
@@ -13,4 +13,3 @@ alias rmcache='sudo pacman -R $(pacman -Qtdq)'
 
 # Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
-

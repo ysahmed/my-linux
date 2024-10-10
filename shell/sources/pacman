@@ -1,0 +1,16 @@
+function fpac() {
+    package=$(pacman -Sl | fzf -m) || return
+    [[ -n $package ]] && echo "$package" | cut -d' ' -f2 | xargs -r sudo pacman -Sy --noconfirm
+}
+
+# Update, install and search
+alias psync='sudo pacman -Sy'
+alias update='sudo pacman -Syyu --noconfirm'
+alias install='sudo pacman -S'
+alias search='pacman -Ss'
+alias remove='sudo pacman -Rns'
+alias rmcache='sudo pacman -R $(pacman -Qtdq)'
+
+# Cleanup orphaned packages
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+

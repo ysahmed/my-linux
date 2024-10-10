@@ -1,0 +1,25 @@
+window {
+    border-radius: 5px;
+    background-color: #272727;
+}
+
+#outer-box {
+    margin: 5px;
+    border: 2px solid #458588;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#entry:selected{
+    border-radius: 5px;
+    background-color: rgba(69,133,136,0.8);
+}
+
+#text:selected{
+    color: #fdbd4e;
+}
+
+#input{
+    border-radius: 5px;
+    margin-bottom: 5px;
+}

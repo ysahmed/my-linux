@@ -1,12 +1,14 @@
 function fpac() {
-    package=$(pacman -Sl | fzf -m --reverse) || return
+    package=$(pacman -Sl | cut -d" " -f2 |
+        fzf -m --ansi --reverse --preview='echo {} | xargs pacman -Si') || return
+
     if [[ -n $package ]]; then
-        command="sudo pacman -Sy $(echo "$package" | cut -d' ' -f2)"
-        # Open the command in the terminal for editing and execution
+        command="sudo pacman -Sy $package"
         read -ei "$command" final_command
         eval "$final_command"
     fi
 }
+
 
 # Update, install and search
 alias psync='sudo pacman -Sy'

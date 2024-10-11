@@ -1,6 +1,11 @@
 function fpac() {
     package=$(pacman -Sl | fzf -m --reverse) || return
-    [[ -n $package ]] && echo "$package" | cut -d' ' -f2 | xargs -r sudo pacman -Sy --noconfirm
+    if [[ -n $package ]]; then
+        command="sudo pacman -Sy $(echo "$package" | cut -d' ' -f2)"
+        # Open the command in the terminal for editing and execution
+        read -ei "$command" final_command
+        eval "$final_command"
+    fi
 }
 
 # Update, install and search

@@ -4,7 +4,7 @@ window {
 }
 
 #outer-box {
-    margin: 5px;
+/*     margin: 5px; */
     border: 2px solid #458588;
     border-radius: 5px;
     padding: 5px;

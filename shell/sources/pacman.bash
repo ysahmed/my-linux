@@ -3,11 +3,13 @@ function fpac() {
         fzf -m --ansi --reverse --preview='echo {} | xargs pacman -Si') || return
 
     if [[ -n $package ]]; then
-        command="sudo pacman -Sy $package"
+        # Use tr to convert newlines to spaces
+        command="sudo pacman -Sy $(echo "$package" | tr '\n' ' ')"
         read -ei "$command" final_command
         eval "$final_command"
     fi
 }
+
 
 
 # Update, install and search

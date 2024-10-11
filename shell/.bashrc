@@ -1,6 +1,10 @@
 # Advanced command-not-found hook
 source /usr/share/doc/find-the-command/ftc.bash
 
+# fzf
+source ~/sources/fzf-key-binding.bash
+source ~/sources/fzf-completion.bash
+
 # others
 source ~/sources/git.bash
 source ~/sources/pacman.bash

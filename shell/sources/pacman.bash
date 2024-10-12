@@ -1,10 +1,10 @@
 function fpac() {
-    package=$(pacman -Sl | cut -d" " -f2 |
-        fzf -m --ansi --reverse --preview='echo {} | xargs pacman -Si') || return
+    local package=$(pacman -Sl | cut -d" " -f2 |
+        fzf -m --ansi --reverse --preview='echo {} | xargs pacman -Si | bat --color=always') || return
 
     if [[ -n $package ]]; then
         # Use tr to convert newlines to spaces
-        command="sudo pacman -Sy $(echo "$package" | tr '\n' ' ')"
+        local command="sudo pacman -Sy $(echo "$package" | tr '\n' ' ')"
         read -ei "$command" final_command
         eval "$final_command"
     fi

@@ -2,8 +2,7 @@
 source /usr/share/doc/find-the-command/ftc.bash
 
 # fzf
-source ~/sources/fzf-key-binding.bash
-source ~/sources/fzf-completion.bash
+eval "$(fzf --bash)"
 
 # others
 source ~/sources/git.bash
@@ -106,9 +105,12 @@ if [ -x .dev/flutter/bin/flutter ]; then
 export PATH="$HOME/.dev/flutter/bin:$PATH"
 fi
 
-function main(){
-  source sources/git
-  cmd="$(grep '^function' "$0"|grep -v "function main"|awk '{print $2}'|cut -d\( -f1|fzf --prompt "Please Make a Selection")"
-  $cmd
-  exit 0
-}
+# function main(){
+#   source sources/git
+#   cmd="$(grep '^function' "$0"|grep -v "function main"|awk '{print $2}'|cut -d\( -f1|fzf --prompt "Please Make a Selection")"
+#   $cmd
+#   exit 0
+# }
+
+# fzf overrides
+source sources/overrides.bash

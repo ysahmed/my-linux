@@ -5,14 +5,14 @@ source /usr/share/doc/find-the-command/ftc.bash
 eval "$(fzf --bash)"
 
 # others
-source ~/sources/git.bash
-source ~/sources/pacman.bash
+source ~/.sources/git.bash
+source ~/.sources/pacman.bash
 
 # overrides
-source ~/sources/overrides.bash
+source ~/.sources/overrides.bash
 
 # aliases
-source ~/sources/aliases.bash
+source ~/.sources/aliases.bash
 
 if [ -x $HOME/.dev/flutter/bin/flutter ]; then
 	export PATH="$HOME/.dev/flutter/bin:$PATH"

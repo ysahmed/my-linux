@@ -20,3 +20,6 @@ _fzf_comprun() {
       ;;
   esac
 }
+
+
+export FZF_COMPLETION_TRIGGER="??"

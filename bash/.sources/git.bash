@@ -41,15 +41,18 @@ FZF-EOF" --preview-window=right:60%
 
 
 function fsb() {
-# Fuzzy search Git branches in a repo
-# Looks for local and remote branches
+    # Fuzzy search Git branches in a repo
+    # Looks for local and remote branches
     local pattern=$*
-        local branches branch
-        branches=$(git branch --all | awk 'tolower($0) ~ /'"$pattern"'/') &&
-        branch=$(echo "$branches" |
-                fzf-tmux -p --reverse -1 -0 +m) &&
-        if [ "$branch" = "" ]; then
-            echo "[$0] No branch matches the provided pattern"; return;
-    fi;
-    git checkout "$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+    local branches branch
+    branches=$(git branch --all | awk 'tolower($0) ~ /'"$pattern"'/') &&
+    branch=$(echo "$branches" |
+             fzf-tmux -p --reverse -1 -0 +m)
+
+    # If a branch is selected, proceed with the checkout
+    if [ -n "$branch" ]; then
+        git checkout "$(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")"
+    fi
+    return
 }
+

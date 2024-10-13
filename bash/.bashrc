@@ -14,6 +14,9 @@ source ~/.sources/overrides.bash
 # aliases
 source ~/.sources/aliases.bash
 
+# key bindings
+source ~/.sources/key_binding.bash
+
 if [ -x $HOME/.dev/flutter/bin/flutter ]; then
 	export PATH="$HOME/.dev/flutter/bin:$PATH"
 fi

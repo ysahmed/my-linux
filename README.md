@@ -1,5 +1,5 @@
 # how to use
 
-- Clone the repo
-- `cd` into the directory
-- run `stow */` to restore all or `stow <pac-name> to restore specific
+- Clone this repo
+- `cd my-linux`
+- run `stow */` to restore all or `stow package-name` to restore specific

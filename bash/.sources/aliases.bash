@@ -15,6 +15,7 @@ alias cat='bat --style header --style snip --style changes --style header'
 # Common use
 alias grubup="sudo update-grub"
 alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias man="batman"
 alias tarnow='tar -acf '
 alias untar='tar -zxvf '
 alias wget='wget -c '
@@ -44,12 +45,12 @@ alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/p
 alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 
 # Help people new to Arch
-alias apt='man pacman'
-alias apt-get='man pacman'
-alias please='sudo'
-alias tb='nc termbin.com 9999'
-alias helpme='cht.sh --shell'
-alias pacdiff='sudo -H DIFFPROG=meld pacdiff'
+# alias apt='man pacman'
+# alias apt-get='man pacman'
+# alias please='sudo'
+# alias tb='nc termbin.com 9999'
+# alias helpme='cht.sh --shell'
+# alias pacdiff='sudo -H DIFFPROG=meld pacdiff'
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"

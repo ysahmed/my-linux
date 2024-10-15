@@ -21,10 +21,30 @@ function fpac() {
     fi
 }
 
+function restpac() {
+    local file=~/my-linux/backup/pkglist.txt
+    if [[ -f $file ]]; then
+        sudo pacman -Sy
+        if [[ ! -x /usr/bin/yay ]]; then
+            sudo pacman -S yay
+        else echo "Found yay!"
+        fi
+        while IFS= read -r package; do
+            yay -S --needed --noconfirm "$package" || echo "Warning: Could not install $package"
+        done < "$file"
+    else
+        echo "$file does not exist."
+    fi
+}
 
+function bacpac(){
+    mkdir -p ~/my-linux/backup
+    pacman -Qeq > ~/my-linux/backup/pkglist.txt
+
+}
 
 # Update, install and search
-alias psync='sudo pacman -Sy'
+alias psync='sudo pacman -S'
 alias update='sudo pacman -Syyu --noconfirm'
 alias install='sudo pacman -S'
 alias search='pacman -Ss'

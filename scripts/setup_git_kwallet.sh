@@ -9,7 +9,7 @@ function echo_green {
 
 # Step 1: Update package database and install necessary packages
 echo_green "Updating package database and installing necessary packages..."
-sudo pacman -Syu --needed libsecret kwallet kwalletmanager git --noconfirm
+sudo pacman -Sy --needed libsecret kwallet kwalletmanager git --needed --noconfirm
 
 # Step 2: Check if libsecret is properly installed
 echo_green "Checking if 'libsecret' is installed and Git supports it..."

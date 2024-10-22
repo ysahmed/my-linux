@@ -18,6 +18,9 @@ source ~/.sources/key_binding.bash
 # Advanced command-not-found hook
 source /usr/share/doc/find-the-command/ftc.bash
 
+# bash settings
+export HISTCONTROL=ignoreboth:erasedups
+
 
 if [ -x $HOME/.dev/flutter/bin/flutter ]; then
 	export PATH="$HOME/.dev/flutter/bin:$PATH"

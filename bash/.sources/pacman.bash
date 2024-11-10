@@ -1,39 +1,36 @@
 function fpac() {
-    local package=$(pacman -Sl |
-    awk '{if ($4 == "[installed]") printf "\033[1;32m%s \033[1;33m \033[0m\n", $2; else printf "\033[1;34m%s\033[0m\n", $2}' |
-    fzf \
-    --ansi \
-    --reverse \
-    --prompt=" " \
-    --pointer="" \
-    --height 60% \
-    --border sharp \
-    -m \
-    --preview='echo {} | cut -d" " -f1 | xargs pacman -Si | bat -p' |
-    awk '{printf "%s ", $1}') ||
-    return
+    local selected_packages
+    selected_packages=$(pacman -Sl |
+        awk '{if ($4 == "[installed]") printf "\033[1;32m%s \033[1;33m  \033[0m\n", $2; else printf "\033[1;34m%s\033[0m\n", $2}' |
+        fzf \
+            --ansi \
+            --reverse \
+            --prompt=" " \
+            --pointer=" " \
+            --height 60% \
+            --border sharp \
+            -m \
+            --preview='echo {} | cut -d" " -f1 | xargs pacman -Si | bat -p' |
+        awk '{printf "%s ", $1}') || return
 
-    if [[ -n $package ]]; then
-        # Use tr to convert newlines to spaces
-        local command="sudo pacman -Sy $(echo "$package")"
+    if [[ -n $selected_packages ]]; then
+        local command="sudo pacman -Sy $selected_packages"
         read -ei "$command" final_command
         eval "$final_command"
     fi
 }
 
 function restpac() {
-    local file=~/my-linux/backup/pkglist.txt
-    if [[ -f $file ]]; then
+    local package_list_file="${HOME}/my-linux/backup/pkglist.txt"
+
+    if [[ -f "$package_list_file" ]]; then
         sudo pacman -Sy
-        if [[ ! -x /usr/bin/yay ]]; then
-            sudo pacman -S yay
-        else echo "Found yay!"
-        fi
+
         while IFS= read -r package; do
-            yay -S --needed --noconfirm "$package" || echo "Warning: Could not install $package"
-        done < "$file"
+            sudo -E yay -S --needed --noconfirm "$package" || printf "Warning: Could not install %s\n" "$package"
+        done < "$package_list_file"
     else
-        echo "$file does not exist."
+        printf "%s does not exist.\n" "$package_list_file"
     fi
 }
 

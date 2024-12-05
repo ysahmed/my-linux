@@ -1,12 +1,14 @@
 ## FIRST LINE/ROW: Info & Status
-# format = """
-# $hostname\
-# $directory\
-# $git_branch\
-# $dart\
-# \n
-# $character
-# """
+format = """
+$os\
+$directory\
+$git_branch\
+$git_status\
+$python\
+$dart\
+\n\
+$character
+"""
 # First param ─┌
 [username]
 disabled = false
@@ -26,12 +28,13 @@ ssh_symbol = " "
 
 # Third param
 [directory]
-style = "blue"
+style = "bold blue"
 truncate_to_repo = true
 fish_style_pwd_dir_length = 1
 truncation_length = 3
 truncation_symbol = ".../"
 read_only = " 󰌾"
+format = "[ ╭─](bold red) [$path ]($style)"
 
 # Fourth param
 [sudo]
@@ -61,6 +64,9 @@ disabled = true
 discharging_symbol = ""
 full_symbol = ""
 
+[os]
+disabled=true
+
 [[battery.display]]  # "bold red" style when capacity is between 0% and 10%
 disabled = false
 style = "bold red"
@@ -87,6 +93,12 @@ time_format = "%T"
 [character]
 error_symbol = " [×](bold red)"
 success_symbol = " [╰─λ](bold red)"
+
+[line_break]
+disabled = false
+
+[fill]
+disabled = false
 
 # SYMBOLS
 [status]

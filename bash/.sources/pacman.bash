@@ -27,7 +27,7 @@ function restpac() {
         sudo pacman -Sy
 
         while IFS= read -r package; do
-            sudo -E yay -S --needed --noconfirm "$package" || printf "Warning: Could not install %s\n" "$package"
+            yay -S --needed --noconfirm "$package" || printf "Warning: Could not install %s\n" "$package"
         done < "$package_list_file"
     else
         printf "%s does not exist.\n" "$package_list_file"

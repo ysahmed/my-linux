@@ -69,6 +69,8 @@ alias pp='python3'
 alias rmenv='rm -rf $(pipenv --venv)'
 alias nvminit='source /usr/share/nvm/init-nvm.sh'
 alias nsm='ssh nsm'
+alias yvpn-start='openvpn3 session-start --config ~/ovpn/profile-waesh.ovpn'
+alias yvpn-end='openvpn3 session-manage --disconnect --config ~/ovpn/profile-waesh.ovpn'
 
 if [ -x .dev/flutter/bin/flutter ]; then
 export PATH="$HOME/.dev/flutter/bin:$PATH"

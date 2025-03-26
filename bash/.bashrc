@@ -1,10 +1,16 @@
 
 # fzf
-eval "$(fzf --bash)"
+if [ -x /usr/bin/fzf ]; then
+	eval "$(fzf --bash)"
+else
+	echo "Install fzf"
+fi
 
 # others
 source ~/.sources/git.bash
-source ~/.sources/pacman.bash
+if [ -x /usr/bin/pacman ]; then
+	source ~/.sources/pacman.bash
+fi
 
 # overrides
 source ~/.sources/overrides.bash
@@ -16,7 +22,9 @@ source ~/.sources/aliases.bash
 source ~/.sources/key_binding.bash
 
 # Advanced command-not-found hook
-source /usr/share/doc/find-the-command/ftc.bash
+if [[ -f /usr/share/doc/find-the-command/ftc.bash ]]; then
+	source /usr/share/doc/find-the-command/ftc.bash
+fi
 
 # bash settings
 export HISTCONTROL=ignoreboth:erasedups
@@ -30,20 +38,24 @@ fi
 [[ $- != *i* ]] && return
 
 # Load starship prompt if starship is installed
-if [ -x /usr/bin/starship ]; then
+strshp=$(which starship)
+if [ -n "$strshp" ] && [ -x "$strshp" ]; then
 	__main() {
 		local major="${BASH_VERSINFO[0]}"
 		local minor="${BASH_VERSINFO[1]}"
 
 		if ((major > 4)) || { ((major == 4)) && ((minor >= 1)); }; then
-			source <("/usr/bin/starship" init bash --print-full-init)
+			source <("$strshp" init bash --print-full-init)
 		else
-			source /dev/stdin <<<"$("/usr/bin/starship" init bash --print-full-init)"
+			source /dev/stdin <<<"$("$strshp" init bash --print-full-init)"
 		fi
 	}
 	__main
 	unset -f __main
 fi
+
+# Enable bash completion
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
 
 
 # function main(){
@@ -52,4 +64,3 @@ fi
 #   $cmd
 #   exit 0
 # }
-

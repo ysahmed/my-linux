@@ -8,8 +8,15 @@ fi
 
 # others
 source ~/.sources/git.bash
+
+# pacman
 if [ -x /usr/bin/pacman ]; then
 	source ~/.sources/pacman.bash
+fi
+
+# dnf
+if [ -x /usr/bin/dnf ]; then
+	source ~/.sources/dnf.bash
 fi
 
 # overrides

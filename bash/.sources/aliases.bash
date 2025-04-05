@@ -2,27 +2,31 @@
 ## Useful aliases
 
 # Replace ls with exa
-alias ls='exa -al --color=always --group-directories-first --icons'     # preferred listing
-alias la='exa -a --color=always --group-directories-first --icons'      # all files and dirs
-alias ll='exa -l --color=always --group-directories-first --icons'      # long format
-alias lt='exa -aT --color=always --group-directories-first --icons'     # tree listing
-alias l.='exa -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+if [ -x /usr/bin/exa ]; then
+    alias ls='exa -al --color=always --group-directories-first --icons'     # preferred listing
+    alias la='exa -a --color=always --group-directories-first --icons'      # all files and dirs
+    alias ll='exa -l --color=always --group-directories-first --icons'      # long format
+    alias lt='exa -aT --color=always --group-directories-first --icons'     # tree listing
+    alias l.='exa -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+fi
 
 # Replace some more things with better alternatives
-alias cat='bat --style header --style snip --style changes --style header'
+[ -x /usr/bin/bat ] && alias cat='bat --style header --style snip --style changes --style header'
+alias man="batman"
 [ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
 
 # Common use
 alias grubup="sudo update-grub"
-alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-alias man="batman"
+[ -x /usr/bin/pacman ] && alias fixpacman="sudo rm /var/lib/pacman/db.lck"
 alias tarnow='tar -acf '
 alias untar='tar -zxvf '
 alias wget='wget -c '
 alias rmpkg="sudo pacman -Rdd"
 alias psmem='ps auxf | sort -nr -k 4'
 alias psmem10='ps auxf | sort -nr -k 4 | head -10'
-alias upd='/usr/bin/garuda-update'
+
+[ -x /usr/bin/garuda-update ] && alias upd='/usr/bin/garuda-update'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -30,9 +34,13 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
-alias grep='ugrep --color=auto'
-alias fgrep='ugrep -F --color=auto'
-alias egrep='ugrep -E --color=auto'
+
+if [ -x /usr/bin/ugrep ]; then
+    alias grep='ugrep --color=auto'
+    alias fgrep='ugrep -F --color=auto'
+    alias egrep='ugrep -E --color=auto'
+fi
+
 alias hw='hwinfo --short'                          # Hardware Info
 alias big="expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB (expac must be installed)
 alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages

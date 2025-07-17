@@ -7,26 +7,26 @@ else
 fi
 
 # others
-source ~/.sources/git.bash
+source $HOME/.sources/git.bash
 
 # pacman
 if [ -x /usr/bin/pacman ]; then
-	source ~/.sources/pacman.bash
+	source $HOME/.sources/pacman.bash
 fi
 
 # dnf
 if [ -x /usr/bin/dnf ]; then
-	source ~/.sources/dnf.bash
+	source $HOME/.sources/dnf.bash
 fi
 
 # overrides
-source ~/.sources/overrides.bash
+source $HOME/.sources/overrides.bash
 
 # aliases
-source ~/.sources/aliases.bash
+source $HOME/.sources/aliases.bash
 
 # key bindings
-source ~/.sources/key_binding.bash
+source $HOME/.sources/key_binding.bash
 
 # Advanced command-not-found hook
 if [[ -f /usr/share/doc/find-the-command/ftc.bash ]]; then

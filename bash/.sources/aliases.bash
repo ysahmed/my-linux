@@ -2,17 +2,27 @@
 ## Useful aliases
 
 # Replace ls with exa
-if [ -x /usr/bin/exa ]; then
-    alias ls='exa -al --color=always --group-directories-first --icons'     # preferred listing
-    alias la='exa -a --color=always --group-directories-first --icons'      # all files and dirs
-    alias ll='exa -l --color=always --group-directories-first --icons'      # long format
-    alias lt='exa -aT --color=always --group-directories-first --icons'     # tree listing
-    alias l.='exa -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+replace_ls() {
+    local exa_bin=$1
+    ls() { "$exa_bin" -al --color=always --group-directories-first --icons "$@"; }     # preferred listing
+    la() { "$exa_bin" -a --color=always --group-directories-first --icons "$@"; }      # all files and dirs
+    ll() { "$exa_bin" -l --color=always --group-directories-first --icons "$@"; }      # long format
+    lt() { "$exa_bin" -aT --color=always --group-directories-first --icons "$@"; }     # tree listing
+    l.() { exa -ald --color=always --group-directories-first --icons .* "$@"; } # show only dotfiles
+    tree() { "$exa_bin" --tree "$@"; }
+}
+
+if [ -x "$(which exa)" ]; then
+    exa_bin='exa'
+    replace_ls $exa_bin
+elif [ -x "$(which eza)" ]; then
+    exa_bin='eza'
+    replace_ls $exa_bin
 fi
 
 # Replace some more things with better alternatives
 [ -x /usr/bin/bat ] && alias cat='bat --style header --style snip --style changes --style header'
-alias man="batman"
+[ -x /usr/bin/batman ] &&  alias man="batman"
 [ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
 
 # Common use

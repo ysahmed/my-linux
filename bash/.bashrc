@@ -64,10 +64,15 @@ fi
 # Enable bash completion
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
 
-
+export SAL_USE_VCLPLUGIN='gtk3'
 # function main(){
 #   source sources/git
 #   cmd="$(grep '^function' "$0"|grep -v "function main"|awk '{print $2}'|cut -d\( -f1|fzf --prompt "Please Make a Selection")"
 #   $cmd
 #   exit 0
 # }
+
+# FVM
+export PATH="$HOME/fvm/default/bin/:$PATH"
+
+export PATH="$HOME/Android/Sdk/platform-tools/:$PATH"

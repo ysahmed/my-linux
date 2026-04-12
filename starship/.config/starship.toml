@@ -6,6 +6,7 @@ $git_branch\
 $git_status\
 $python\
 $dart\
+$cmd_duration\
 \n\
 $character
 """
@@ -52,7 +53,7 @@ style = "white"
 # Last param in the first line/row
 [cmd_duration]
 disabled = false
-format = "took [$duration]($style)"
+format = "⌛ [$duration]($style)"
 min_time = 1
 
 

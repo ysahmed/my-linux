@@ -73,6 +73,17 @@ export SAL_USE_VCLPLUGIN='gtk3'
 # }
 
 # FVM
-export PATH="$HOME/fvm/default/bin/:$PATH"
+if [ -x $HOME/fvm/bin ]; then
+	export PATH="$HOME/fvm/bin/:$PATH"
+fi
 
-export PATH="$HOME/Android/Sdk/platform-tools/:$PATH"
+if [ -x $HOME/fvm/default/bin ]; then
+	export PATH="$HOME/fvm/default/bin/:$PATH"
+fi
+
+# android platform-tools
+if [ -x $HOME/Android/Sdk/platform-tools ]; then
+	export PATH="$HOME/Android/Sdk/platform-tools/:$PATH"
+fi
+
+

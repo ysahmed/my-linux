@@ -73,17 +73,23 @@ export SAL_USE_VCLPLUGIN='gtk3'
 # }
 
 # FVM
-if [ -x $HOME/fvm/bin ]; then
+if [ -d $HOME/fvm/bin ]; then
 	export PATH="$HOME/fvm/bin/:$PATH"
 fi
 
-if [ -x $HOME/fvm/default/bin ]; then
+if [ -d $HOME/fvm/default/bin ]; then
 	export PATH="$HOME/fvm/default/bin/:$PATH"
+	# chrome executable for flutter development
+	if [ -x /usr/bin/chromium-browser ]; then
+		export CHROME_EXECUTABLE="/usr/bin/chromium-browser"
+	fi
 fi
 
 # android platform-tools
-if [ -x $HOME/Android/Sdk/platform-tools ]; then
+if [ -d $HOME/Android/Sdk/platform-tools ]; then
 	export PATH="$HOME/Android/Sdk/platform-tools/:$PATH"
 fi
+
+
 
 

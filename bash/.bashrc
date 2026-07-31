@@ -96,3 +96,15 @@ if [ -f $HOME/.private/bash/.ex_bashrc ]; then
 fi
 
 
+
+# opencode
+export PATH=/home/waesh/.local/bin:/home/waesh/.opencode/bin:$PATH
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/waesh/.lmstudio/bin"
+# End of LM Studio CLI section
+

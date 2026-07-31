@@ -12,12 +12,33 @@ replace_ls() {
     tree() { "$exa_bin" --tree "$@"; }
 }
 
+flacit() {
+    for file in *.wav; do
+        ffmpeg -i "$file" -map 0:a -map 0:v? -c:a flac -c:v copy -id3v2_version 3 "${file%.wav}.flac"
+    done
+}
+
+flacrename() {
+    exiftool '-testname<${artist} - ${title}.%e' *.flac
+}
+
+flacrenamer() {
+    exiftool -r '-filename<${artist} - ${title}.%e' .
+}
+
 if [ -x "$(which exa 2> /dev/null)" ]; then
     exa_bin='exa'
     replace_ls $exa_bin
 elif [ -x "$(which eza 2> /dev/null)" ]; then
     exa_bin='eza'
     replace_ls $exa_bin
+fi
+
+
+# Rename flacs as "{arlist} - {title}.flac"
+if [ -x "$(which exiftool 2> /dev/null)" ]; then
+    alias atrename="exiftool '-filename<${artist} - ${title}.%e' *.flac"
+    alias atrenamer="exiftool -r '-filename<${artist} - ${title}.%e' ."
 fi
 
 # Replace some more things with better alternatives
@@ -54,13 +75,6 @@ fi
 alias hw='hwinfo --short'                          # Hardware Info
 alias ip='ip -color'
 
-# Help people new to Arch
-# alias apt='man pacman'
-# alias apt-get='man pacman'
-# alias please='sudo'
-# alias tb='nc termbin.com 9999'
-# alias helpme='cht.sh --shell'
-# alias pacdiff='sudo -H DIFFPROG=meld pacdiff'
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
@@ -80,5 +94,5 @@ alias nsm='ssh nsm'
 # alias yvpn-end='openvpn3 session-manage --disconnect --config ~/ovpn/profile-waesh.ovpn'
 
 if [ -x .dev/flutter/bin/flutter 2> /dev/null ]; then
-export PATH="$HOME/.dev/flutter/bin:$PATH"
+    export PATH="$HOME/.dev/flutter/bin:$PATH"
 fi

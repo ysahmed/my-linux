@@ -19,12 +19,79 @@ flacit() {
 }
 
 flacrename() {
-    exiftool '-testname<${artist} - ${title}.%e' *.flac
+    local count=0
+
+    # Check if there are any flac files in the current folder
+    if ! ls *.flac >/dev/null 2>&1; then
+        echo "No .flac files found in the current directory."
+        return 1
+    fi
+
+    for file in *.flac; do
+        # Only process actual files
+        [ -f "$file" ] || continue
+
+        # Extract tags and strip "TAG=" prefix
+        local artist=$(metaflac --show-tag=ARTIST "$file" | cut -d= -f2-)
+        local title=$(metaflac --show-tag=TITLE "$file" | cut -d= -f2-)
+
+        # Only proceed if both tags exist
+        if [ -n "$artist" ] && [ -n "$title" ]; then
+            # Safety: Replace any forward slashes (/) with dashes (-) so Linux doesn't think it's a directory
+            artist="${artist//\//-}"
+            title="${title//\//-}"
+
+            local new_name="${artist} - ${title}.flac"
+
+            # Avoid renaming a file to its exact same name
+            if [ "$file" != "$new_name" ]; then
+                # -n prevents overwriting an existing file
+                mv -n "$file" "$new_name"
+                echo "Renamed: '$file' -> '$new_name'"
+                ((count++))
+            fi
+        else
+            echo "Skipped '$file': Missing ARTIST or TITLE metadata tags."
+        fi
+    done
+
+    echo "Done! Successfully renamed $count files."
 }
 
+
 flacrenamer() {
-    exiftool -r '-filename<${artist} - ${title}.%e' .
+    local target_dir="${1:-.}"
+    local count=0
+
+    # Locate all .flac files recursively, handling spaces and special characters safely
+    while IFS= read -r -d '' file; do
+        # Extract tags and remove the 'ARTIST=' or 'TITLE=' header prefix
+        local artist=$(metaflac --show-tag=ARTIST "$file" | cut -d= -f2-)
+        local title=$(metaflac --show-tag=TITLE "$file" | cut -d= -f2-)
+
+        if [ -n "$artist" ] && [ -n "$title" ]; then
+            # Clean up illegal directory slashes (/) from the tags
+            artist="${artist//\//-}"
+            title="${title//\//-}"
+
+            # Isolate the directory path and create the target filename
+            local dirname=$(dirname "$file")
+            local new_name="${dirname}/${artist} - ${title}.flac"
+
+            if [ "$file" != "$new_name" ]; then
+                # Rename file without overwriting existing files (-n)
+                mv -n "$file" "$new_name"
+                echo "Renamed: '$file' -> '$new_name'"
+                ((count++))
+            fi
+        else
+            echo "Skipped: '$file' (Missing ARTIST or TITLE metadata)"
+        fi
+    done < <(find "$target_dir" -type f -name "*.flac" -print0)
+
+    echo "Done! Successfully processed and renamed $count files recursively."
 }
+
 
 if [ -x "$(which exa 2> /dev/null)" ]; then
     exa_bin='exa'

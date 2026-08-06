@@ -1,3 +1,19 @@
+# Avoid storing duplicate entries and lines starting with a space
+export HISTCONTROL=ignoreboth:erasedups
+
+# Append to the history file rather than overwriting it
+shopt -s histappend
+
+# Set max lines in memory and history file (Set to -1 for unlimited)
+export HISTSIZE=50000
+export HISTFILESIZE=100000
+
+# Save multi-line commands as a single history entry
+shopt -s cmdhist
+
+# Instantly append commands to history after each command execution
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 
 # fzf
 if [ -x /usr/bin/fzf ]; then
@@ -32,10 +48,6 @@ source $HOME/.sources/key_binding.bash
 if [[ -f /usr/share/doc/find-the-command/ftc.bash ]]; then
 	source /usr/share/doc/find-the-command/ftc.bash
 fi
-
-# bash settings
-export HISTCONTROL=ignoreboth:erasedups
-
 
 if [ -x $HOME/.dev/flutter/bin/flutter ]; then
 	export PATH="$HOME/.dev/flutter/bin:$PATH"
@@ -95,16 +107,15 @@ if [ -f $HOME/.private/bash/.ex_bashrc ]; then
 	source $HOME/.private/bash/.ex_bashrc
 fi
 
-
-
 # opencode
 export PATH=/home/waesh/.local/bin:/home/waesh/.opencode/bin:$PATH
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/waesh/.lmstudio/bin"
+# End of LM Studio CLI section
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/waesh/.lmstudio/bin"
-# End of LM Studio CLI section
 

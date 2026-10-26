@@ -2,7 +2,7 @@
 export HISTCONTROL=ignoreboth:erasedups
 
 # Append to the history file rather than overwriting it
-shopt -s histappend
+# shopt -s histappend
 
 # Set max lines in memory and history file (Set to -1 for unlimited)
 export HISTSIZE=50000
@@ -119,3 +119,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/waesh/.local/bin:$PATH"

@@ -14,3 +14,7 @@
 export PATH="$PATH:/home/waesh/.lmstudio/bin"
 # End of LM Studio CLI section
 
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/waesh/.local/bin:$PATH"

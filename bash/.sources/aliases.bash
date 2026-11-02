@@ -93,23 +93,27 @@ flacrenamer() {
 }
 
 
-if [ -x "$(which exa 2> /dev/null)" ]; then
+if command -v exa &>/dev/null; then
     exa_bin='exa'
-    replace_ls $exa_bin
-elif [ -x "$(which eza 2> /dev/null)" ]; then
+    replace_ls "$exa_bin"
+elif command -v eza &>/dev/null; then
     exa_bin='eza'
-    replace_ls $exa_bin
+    replace_ls "$exa_bin"
 fi
 
-
 # Rename flacs as "{arlist} - {title}.flac"
-if [ -x "$(which exiftool 2> /dev/null)" ]; then
+if command -v exiftool &>/dev/null; then
     alias atrename="exiftool '-filename<${artist} - ${title}.%e' *.flac"
     alias atrenamer="exiftool -r '-filename<${artist} - ${title}.%e' ."
 fi
 
 # Replace some more things with better alternatives
-[ -x /usr/bin/bat ] && alias cat='bat --style header --style snip --style changes --style header'
+if command -v bat &>/dev/null; then
+    alias cat='bat --style header --style snip --style changes --style header'
+elif command -v batcat &>/dev/null; then
+    alias cat='batcat --style header --style snip --style changes --style header'
+fi
+
 [ -x /usr/bin/batman ] &&  alias man="batman"
 [ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
 
@@ -133,7 +137,7 @@ alias ......='cd ../../../../..'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 
-if [ -x /usr/bin/ugrep ]; then
+if command -v ugrep &>/dev/null; then
     alias grep='ugrep --color=auto'
     alias fgrep='ugrep -F --color=auto'
     alias egrep='ugrep -E --color=auto'

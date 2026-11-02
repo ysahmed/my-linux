@@ -35,6 +35,11 @@ if [ -x /usr/bin/dnf ]; then
 	source $HOME/.sources/dnf.bash
 fi
 
+# apt
+if [ -x /usr/bin/apt ]; then
+	source $HOME/.sources/apt.bash
+fi
+
 # overrides
 source $HOME/.sources/overrides.bash
 
@@ -119,7 +124,10 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 
-
-
 # Added by Antigravity CLI installer
 export PATH="/home/waesh/.local/bin:$PATH"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
